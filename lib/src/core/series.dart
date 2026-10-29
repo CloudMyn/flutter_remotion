@@ -48,6 +48,9 @@ class Series extends StatelessWidget {
       offset += seq.durationInFrames;
     }
 
-    return Stack(children: children);
+    return Stack(
+      alignment: Alignment.topLeft,
+      children: children,
+    );
   }
 }

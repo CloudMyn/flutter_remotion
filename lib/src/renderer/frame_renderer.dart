@@ -34,11 +34,15 @@ abstract final class FrameRenderer {
     required Widget widget,
     required VideoConfig config,
   }) async {
-    // Wrap widget so it receives the correct frame context.
-    final framedWidget = CompositionProvider(
-      config: config,
-      frame: frame,
-      child: widget,
+    // Wrap widget in Directionality so widgets like Stack, Text, and Row
+    // can resolve directional alignments without needing an ambient MaterialApp.
+    final framedWidget = Directionality(
+      textDirection: TextDirection.ltr,
+      child: CompositionProvider(
+        config: config,
+        frame: frame,
+        child: widget,
+      ),
     );
 
     // Build an off-screen render tree.
